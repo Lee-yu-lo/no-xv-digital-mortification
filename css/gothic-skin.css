@@ -1,0 +1,379 @@
+/* ============================================================
+   GOTHIC SKIN · 哥特石质大教堂皮肤（v20261104a，最后加载）
+   依据 2026-11-04 参考图（哥特穹顶肋拱 / 冷青黑 / 石纹 /
+   花窗冷光 / 湿版摄影暗角）：
+   整站由「羊皮纸亮调」翻转为「冷青黑石质教堂」。
+   语言：黑青石底 + 肋拱放射线 + 花窗冷光斑 + 冰银文字 +
+   石质暗面板 + 重暗角。全站视觉一致。
+   ============================================================ */
+
+/* ── 1. Token 翻转：冷青黑石质 ── */
+:root {
+  --bg: #060b0d;
+  --bg-light: #0c1518;
+  --bg-mid: #0a1215;
+  --bg-deep: #04080a;
+  --text: #c3d3d5;           /* 冰银 */
+  --text-dim: #8fa4a7;
+  --text-faint: #63787c;
+  --accent: #7fb6bb;         /* 冷青辉 */
+  --gold: #9fb8bc;           /* 金 → 冰银冷金属 */
+  --gold-deep: #6d878b;
+  --blood: #5f9ea4;          /* 主色 → 冷青 */
+  --blood-bright: #8fc7cc;
+  --blood-deep: #3d6b70;
+  --warm: #c3d3d5;
+  --bone: #aebfc1;
+}
+
+/* ── 2. body：教堂中殿冷青黑 + 石纹 + 湿版暗角 ── */
+body {
+  background:
+    radial-gradient(ellipse 70% 34% at 50% -6%, rgba(150, 200, 205, .14) 0%, transparent 60%),
+    radial-gradient(ellipse 34% 22% at 12% 12%, rgba(140, 190, 196, .07) 0%, transparent 70%),
+    radial-gradient(ellipse 34% 22% at 88% 16%, rgba(140, 190, 196, .06) 0%, transparent 70%),
+    radial-gradient(ellipse 130% 96% at 50% 42%, #0b1417 0%, #070e11 52%, #04080a 100%) !important;
+  color: var(--text);
+}
+/* 血棕云纹 → 去饱和石纹湿斑（灰化即冷石） */
+body::before {
+  mix-blend-mode: overlay !important;
+  opacity: .16 !important;
+  filter: saturate(0) brightness(1.1) !important;
+}
+/* 纤维颗粒 → 冷尘 */
+body::after {
+  mix-blend-mode: screen !important;
+  opacity: .04 !important;
+  filter: saturate(0) !important;
+}
+
+/* ── 3. HERO：肋拱穹顶 + 花窗冷光 ── */
+#hero {
+  background:
+    radial-gradient(ellipse 62% 30% at 50% -4%, rgba(168, 214, 218, .16) 0%, transparent 62%),
+    radial-gradient(ellipse 120% 90% at 50% 46%, #0c161a 0%, #070e11 55%, #04080a 100%) !important;
+}
+/* 穹顶肋拱：自底部中央向上放射的细肋线（参考图主结构） */
+#hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-conic-gradient(from 218deg at 50% 108%,
+      rgba(190, 222, 226, .13) 0deg .5deg,
+      transparent .5deg 5.6deg),
+    radial-gradient(ellipse 46% 60% at 50% 104%, rgba(150, 200, 206, .10) 0%, transparent 68%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 4%, rgba(0,0,0,.85) 46%, #000 100%);
+  mask-image: linear-gradient(180deg, transparent 4%, rgba(0,0,0,.85) 46%, #000 100%);
+  z-index: 0;
+}
+/* 花窗冷光斑：左右上方各一窗渍光晕 */
+#hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 9% 20% at 13% 18%, rgba(196, 228, 232, .14) 0%, transparent 70%),
+    radial-gradient(ellipse 9% 20% at 87% 22%, rgba(196, 228, 232, .12) 0%, transparent 70%),
+    radial-gradient(ellipse 7% 16% at 26% 8%, rgba(196, 228, 232, .09) 0%, transparent 70%),
+    radial-gradient(ellipse 7% 16% at 74% 10%, rgba(196, 228, 232, .08) 0%, transparent 70%);
+  z-index: 0;
+}
+/* 星轨环 → 冰银冷环 */
+.hero-halo {
+  background:
+    radial-gradient(circle, transparent 56.5%, rgba(159, 184, 188, .5) 57%, transparent 58.4%),
+    radial-gradient(circle, transparent 63.5%, rgba(159, 184, 188, .34) 64%, transparent 65.4%),
+    radial-gradient(circle, transparent 70.5%, rgba(159, 184, 188, .24) 71%, transparent 72.2%),
+    radial-gradient(circle, transparent 77.5%, rgba(159, 184, 188, .16) 78%, transparent 79%),
+    radial-gradient(circle, transparent 84.5%, rgba(159, 184, 188, .1) 85%, transparent 86%) !important;
+  opacity: .85 !important;
+}
+/* 日蚀徽章：红金 → 冷青银圣物（去饱和+冷相移） */
+.hero-seal {
+  filter: saturate(.22) hue-rotate(158deg) brightness(1.12)
+    drop-shadow(0 0 22px rgba(127, 182, 187, .35)) !important;
+  animation: none !important;
+}
+/* 主标题 → 冰银石刻 */
+.hero-title-line {
+  color: #ddebed !important;
+  text-shadow: 0 0 26px rgba(159, 200, 205, .35), 0 2px 18px rgba(0, 0, 0, .8) !important;
+}
+.hero-title-en, .hero-subtitle { color: #9fb4b7 !important; }
+.hero-eyebrow { color: #7fb6bb !important; }
+.hero-script { color: #a8cdd1 !important; text-shadow: 0 0 18px rgba(127, 182, 187, .35) !important; }
+/* 版框 → 冷银线 */
+#hero .hero-content::before { border-color: rgba(159, 184, 188, .35) !important; }
+#hero .hero-content::after { border-color: rgba(159, 184, 188, .22) !important; }
+/* 回纹饰带 → 冰银 */
+#hero > .section-inner::after,
+#hero::after { opacity: 0; }
+#hero > .section-inner::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 12px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='12' viewBox='0 0 28 12'%3E%3Cpath d='M1 11 V1 H13 V7 H6 V11 M15 11 V1 H27 V7 H20 V11' fill='none' stroke='%23728d91' stroke-width='1.4'/%3E%3C/svg%3E") repeat-x left center / 28px 12px;
+  opacity: .7;
+  z-index: 2;
+  pointer-events: none;
+}
+/* 暗角 → 湿版摄影黑角（参考图边缘） */
+.hero-vignette {
+  background:
+    radial-gradient(ellipse at 50% 44%, transparent 42%, rgba(2, 5, 6, .55) 84%, rgba(1, 3, 4, .82) 100%),
+    linear-gradient(180deg, rgba(2, 5, 6, .5) 0%, transparent 18%) !important;
+}
+.hero-grain { opacity: .08 !important; filter: saturate(0); }
+/* 顶部身份条 → 石牌冷字 */
+.hero-identity {
+  background: rgba(8, 16, 19, .6) !important;
+  border: 1px solid rgba(159, 184, 188, .3) !important;
+  color: #8fa4a7 !important;
+}
+/* 大 XV 底纹 → 冷银刻痕 */
+.hero-watermark i { color: rgba(190, 222, 226, .05) !important; }
+
+/* ── 4. 导航：黑石面板 ── */
+#nav {
+  background: linear-gradient(180deg, rgba(6, 11, 13, .97), rgba(4, 8, 10, .97)) !important;
+  border-bottom: 1px solid rgba(159, 184, 188, .35) !important;
+  box-shadow: 0 6px 26px -10px rgba(0, 0, 0, .9) !important;
+}
+.nav-logo { color: #dcebed !important; }
+.nav-logo .striked { color: #7fb6bb !important; }
+.nav-links a { color: #93a9ac !important; }
+.nav-links a:hover { color: #dcebed !important; }
+.nav-page-link { background: rgba(159, 184, 188, .1) !important; }
+.nav-time, .nav-build { color: #6d878b !important; }
+
+/* ── 5. 暗区板块 → 石质暗面板（全站统一）── */
+.section-dark { color: var(--text); }
+.section-dark .section-label,
+.section-dark .section-label::before { color: #7fb6bb !important; }
+.section-dark .section-title {
+  color: #ddebed !important;
+  text-shadow: 0 0 24px rgba(159, 200, 205, .28), 0 2px 14px rgba(0, 0, 0, .8) !important;
+}
+.section-dark .section-title::after { background: linear-gradient(90deg, #7fb6bb, transparent) !important; }
+.section-dark .section-desc { color: #8fa4a7 !important; }
+.section-dark p, .section-dark li, .section-dark span, .section-dark h3 { color: inherit; }
+
+/* 板块容器：黑石板 + 四角石雕角饰（冷银） */
+.section-dark:not(.zone-archive) > .section-inner {
+  background-color: rgba(10, 18, 21, .88) !important;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M43 3.5 H15 Q3.5 3.5 3.5 15 V43' fill='none' stroke='%23728d91' stroke-width='1.1'/%3E%3Cpath d='M43 9.5 H17.5 Q9.5 9.5 9.5 17.5 V43' fill='none' stroke='%23728d91' stroke-opacity='.4' stroke-width='.7'/%3E%3Ccircle cx='3.5' cy='3.5' r='1.5' fill='%23728d91'/%3E%3Ccircle cx='43' cy='3.5' r='.9' fill='%23728d91' fill-opacity='.55'/%3E%3Ccircle cx='3.5' cy='43' r='.9' fill='%23728d91' fill-opacity='.55'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cg transform='translate(44,0) scale(-1,1)'%3E%3Cpath d='M43 3.5 H15 Q3.5 3.5 3.5 15 V43' fill='none' stroke='%23728d91' stroke-width='1.1'/%3E%3Cpath d='M43 9.5 H17.5 Q9.5 9.5 9.5 17.5 V43' fill='none' stroke='%23728d91' stroke-opacity='.4' stroke-width='.7'/%3E%3Ccircle cx='3.5' cy='3.5' r='1.5' fill='%23728d91'/%3E%3Ccircle cx='43' cy='3.5' r='.9' fill='%23728d91' fill-opacity='.55'/%3E%3Ccircle cx='3.5' cy='43' r='.9' fill='%23728d91' fill-opacity='.55'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cg transform='translate(0,44) scale(1,-1)'%3E%3Cpath d='M43 3.5 H15 Q3.5 3.5 3.5 15 V43' fill='none' stroke='%23728d91' stroke-width='1.1'/%3E%3Cpath d='M43 9.5 H17.5 Q9.5 9.5 9.5 17.5 V43' fill='none' stroke='%23728d91' stroke-opacity='.4' stroke-width='.7'/%3E%3Ccircle cx='3.5' cy='3.5' r='1.5' fill='%23728d91'/%3E%3Ccircle cx='43' cy='3.5' r='.9' fill='%23728d91' fill-opacity='.55'/%3E%3Ccircle cx='3.5' cy='43' r='.9' fill='%23728d91' fill-opacity='.55'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cg transform='translate(44,44) scale(-1,-1)'%3E%3Cpath d='M43 3.5 H15 Q3.5 3.5 3.5 15 V43' fill='none' stroke='%23728d91' stroke-width='1.1'/%3E%3Cpath d='M43 9.5 H17.5 Q9.5 9.5 9.5 17.5 V43' fill='none' stroke='%23728d91' stroke-opacity='.4' stroke-width='.7'/%3E%3Ccircle cx='3.5' cy='3.5' r='1.5' fill='%23728d91'/%3E%3Ccircle cx='43' cy='3.5' r='.9' fill='%23728d91' fill-opacity='.55'/%3E%3Ccircle cx='3.5' cy='43' r='.9' fill='%23728d91' fill-opacity='.55'/%3E%3C/g%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-position: top 8px left 8px, top 8px right 8px, bottom 8px left 8px, bottom 8px right 8px;
+  background-size: 44px 44px, 44px 44px, 44px 44px, 44px 44px;
+  border: 1px solid rgba(159, 184, 188, .28) !important;
+  outline: 1px solid rgba(159, 184, 188, .12) !important;
+  outline-offset: 5px;
+  box-shadow: inset 0 1px 0 rgba(190, 222, 226, .07), 0 14px 34px -18px rgba(0, 0, 0, .95) !important;
+}
+.section-dark:not(.zone-archive) > .section-inner.rf-block {
+  background-color: rgba(9, 16, 19, .6) !important;
+  background-image: none !important;
+  border: 1px solid rgba(159, 184, 188, .2) !important;
+  outline: none !important;
+  box-shadow: inset 0 0 0 1px rgba(114, 141, 145, .14) !important;
+}
+
+/* ── 6. 符号卡：黑石棺面板 ── */
+.sin-card {
+  background: linear-gradient(170deg, #0b1519 0%, #070e11 70%, #0a1418 100%) !important;
+  border: 1px solid rgba(159, 184, 188, .3) !important;
+  box-shadow: inset 0 1px 0 rgba(190, 222, 226, .08), 0 12px 30px -14px rgba(0, 0, 0, .95) !important;
+}
+.sin-card:hover { border-color: rgba(159, 200, 205, .55) !important; box-shadow: 0 0 24px rgba(127, 182, 187, .18), 0 14px 34px -14px rgba(0,0,0,.95) !important; }
+.sin-card-name { color: #e3eff0 !important; }
+.sin-card-sub { color: #8fa4a7 !important; }
+.sin-card-quote { color: #6d8286 !important; }
+.sin-card-num { color: #7fb6bb !important; }
+
+/* ── 7. 宣言区：羊皮纸 → 黑石碑刻（保持全站一致）── */
+.zone-archive {
+  --tint: 159, 184, 188;
+  --pq-ink: #c3d3d5;
+  --pq-ink-soft: #8fa4a7;
+  --pq-ink-faint: #63787c;
+  --pq-gold: #9fb8bc;
+  --pq-seal: #7fb6bb;
+  --pq-rule: rgba(159, 184, 188, .24);
+  --pq-rule-strong: rgba(159, 184, 188, .5);
+  --pq-bg: #060b0d;
+  background:
+    radial-gradient(ellipse 60% 34% at 50% 0%, rgba(150, 200, 205, .1) 0%, transparent 62%),
+    linear-gradient(180deg, #0a1215 0%, #060b0d 55%, #04080a 100%) !important;
+}
+.zone-archive > .section-inner {
+  background-color: rgba(10, 18, 21, .82) !important;
+  background-image: none !important;
+  border: 1px solid rgba(159, 184, 188, .26) !important;
+}
+.zone-archive p,
+.zone-archive .manifesto-body p { color: #b7c8ca !important; }
+.zone-archive .manifesto-question { color: #8fc7cc !important; }
+.zone-archive .manifesto-highlight { color: #a8cdd1 !important; }
+.zone-archive .about-lang-btn {
+  border-color: rgba(159, 184, 188, .45) !important;
+  color: #8fa4a7 !important;
+}
+
+/* ── 8. 卷宗三区（research / plan / press-kit）：金沙 → 冷银石库 ── */
+#research,
+#plan,
+#press-kit {
+  --pq-ink: #c3d3d5;
+  --pq-ink-soft: #8fa4a7;
+  --pq-ink-faint: #63787c;
+  --pq-gold: #9fb8bc;
+  --pq-seal: #7fb6bb;
+  --pq-rule: rgba(159, 184, 188, .22);
+  --pq-rule-strong: rgba(159, 184, 188, .48);
+  --pq-bg: #060b0d;
+  --text: #c3d3d5;
+  --text-dim: #8fa4a7;
+  --text-faint: #63787c;
+  --warm: #a8cdd1;
+  --accent: #7fb6bb;
+  --gold: #9fb8bc;
+  --gold-deep: #6d878b;
+  --bg-light: #0c1518;
+  --bg-mid: #0a1215;
+  --tint: 159, 184, 188;
+  color: var(--pq-ink);
+  background-color: #060b0d;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cg fill='%239fb8bc' fill-opacity='.5'%3E%3Ccircle cx='23' cy='41' r='1'/%3E%3Ccircle cx='97' cy='13' r='.7'/%3E%3Ccircle cx='171' cy='67' r='1.2'/%3E%3Ccircle cx='211' cy='133' r='.6'/%3E%3Ccircle cx='57' cy='113' r='.9'/%3E%3Ccircle cx='133' cy='167' r='.8'/%3E%3Ccircle cx='13' cy='197' r='.7'/%3E%3Ccircle cx='83' cy='221' r='1.1'/%3E%3Ccircle cx='187' cy='211' r='.7'/%3E%3Ccircle cx='147' cy='23' r='.5'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 65% 42% at 18% 8%, rgba(95, 158, 164, .16) 0%, transparent 62%),
+    radial-gradient(ellipse 70% 45% at 85% 30%, rgba(80, 140, 146, .13) 0%, transparent 64%),
+    radial-gradient(ellipse 80% 40% at 45% 75%, rgba(60, 110, 116, .1) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 35% at 50% 50%, transparent 42%, rgba(0, 0, 0, .5) 100%) !important;
+  box-shadow:
+    inset 0 30px 60px -44px rgba(159, 184, 188, .22),
+    inset 0 -30px 60px -44px rgba(159, 184, 188, .16),
+    0 0 0 1px rgba(159, 184, 188, .14) !important;
+  border-top: 1px solid rgba(159, 184, 188, .3) !important;
+  border-bottom: 1px solid rgba(159, 184, 188, .3) !important;
+}
+#research .survey-card,
+#research .research-bg-card,
+#research .research-question-card,
+#research .theory-card,
+#research .refcase-card,
+#research .innovation-card,
+#research .feasibility-card,
+#research .method-step,
+#research .apparatus-meta-item,
+#research .fw-stat,
+#plan .plan-phase,
+#plan .progress-wrap,
+#press-kit .press-kit-card,
+#press-kit .copyright-section {
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 0%, rgba(95, 158, 164, .1) 0%, transparent 60%),
+    linear-gradient(165deg, #0c1519 0%, #070e11 62%, #0a1316 100%) !important;
+  border: 1px solid rgba(159, 184, 188, .26) !important;
+  box-shadow: inset 0 1px 0 rgba(190, 222, 226, .07), 0 10px 26px -18px rgba(0, 0, 0, .9) !important;
+}
+#research .survey-card:hover,
+#research .research-bg-card:hover,
+#research .research-question-card:hover,
+#research .theory-card:hover,
+#research .refcase-card:hover,
+#research .innovation-card:hover,
+#research .feasibility-card:hover,
+#press-kit .press-kit-card:hover,
+#plan .plan-phase:hover,
+#research .method-step:hover {
+  background: linear-gradient(165deg, #101c21 0%, #0a1418 62%, #0d171b 100%) !important;
+  border-color: rgba(159, 200, 205, .55) !important;
+}
+/* 进度条：金 → 冰银冷轨 */
+#plan .progress-fill {
+  background: linear-gradient(90deg, #3d5f64 0%, #6d9297 45%, #c9dfe1 100%) !important;
+  box-shadow: 0 0 16px rgba(127, 182, 187, .4) !important;
+}
+#plan .progress-track { background: rgba(159, 184, 188, .12) !important; }
+#plan .progress-marker { border-color: #9fb8bc !important; background: #0c1518 !important; box-shadow: 0 0 10px rgba(127, 182, 187, .45) !important; }
+/* 下载按钮：金 pill → 冰银 pill */
+#press-kit .press-kit-download {
+  color: #06100f !important;
+  background: linear-gradient(180deg, #c9dfe1 0%, #9fb8bc 100%) !important;
+  border: 1px solid #6d878b !important;
+  box-shadow: 0 0 14px rgba(127, 182, 187, .3), inset 0 1px 0 rgba(240, 250, 250, .6) !important;
+  font-weight: 600;
+}
+#press-kit .press-kit-download:hover {
+  background: linear-gradient(180deg, #dceff0 0%, #b4cbcd 100%) !important;
+  box-shadow: 0 0 22px rgba(159, 200, 205, .5) !important;
+}
+#press-kit .kit-ok { color: #7fb6bb !important; }
+#press-kit .kit-pending { color: #6d878b !important; }
+
+/* ── 9. 页脚：黑石基座 ── */
+#footer {
+  background: linear-gradient(180deg, #070e11, #04080a) !important;
+  border-top: 1px solid rgba(159, 184, 188, .35) !important;
+}
+#footer::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='12' viewBox='0 0 28 12'%3E%3Cpath d='M1 11 V1 H13 V7 H6 V11 M15 11 V1 H27 V7 H20 V11' fill='none' stroke='%23728d91' stroke-width='1.4'/%3E%3C/svg%3E") repeat-x left center / 28px 12px !important;
+}
+#footer .footer-question, #footer p, #footer h2, #footer h3 { color: #c3d3d5 !important; }
+#footer span, #footer small, #footer div { color: #7c9195 !important; }
+
+/* ── 10. 按钮 / 链接 / 表格 / 滚动条 ── */
+.apparatus-btn {
+  color: #a8cdd1 !important;
+  border-color: rgba(159, 184, 188, .5) !important;
+  background: rgba(12, 21, 24, .6) !important;
+}
+.apparatus-btn:hover {
+  background: rgba(127, 182, 187, .16) !important;
+  color: #e3f2f3 !important;
+  box-shadow: 0 0 16px rgba(127, 182, 187, .3) !important;
+}
+.section-dark a { color: #8fc7cc !important; }
+.section-dark a:hover { color: #c9ecee !important; }
+.survey-table, .symbol-map-table, .zone-table, .kit-map-table { border-color: rgba(159, 184, 188, .22); }
+.survey-table th, .symbol-map-table th, .zone-table th, .kit-map-table th { color: #9fb8bc; border-color: rgba(159, 184, 188, .28); }
+.survey-table td, .symbol-map-table td, .zone-table td, .kit-map-table td { border-color: rgba(159, 184, 188, .14); }
+#research .survey-table tbody tr:nth-child(even),
+#research .symbol-map-table tbody tr:nth-child(even),
+#research .kit-map-table tbody tr:nth-child(even) { background: rgba(159, 184, 188, .05); }
+.survey-conflict { color: #8fc7cc !important; text-shadow: none !important; }
+.fw-overview { background: rgba(95, 158, 164, .08) !important; border-color: rgba(159, 184, 188, .24) !important; border-left-color: #9fb8bc !important; }
+.fw-stat-num { color: #c9e4e6 !important; text-shadow: 0 0 20px rgba(127, 182, 187, .4) !important; }
+.fw-stat-label { color: #8fa4a7 !important; }
+.fw-toc a { color: #8fa4a7 !important; }
+.fw-toc a:hover { color: #ddebed !important; border-color: rgba(159, 184, 188, .45) !important; background: rgba(159, 184, 188, .08) !important; }
+::-webkit-scrollbar-track { background: #0a1215 !important; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4d686c, #33484b) !important;
+  border-color: #0a1215 !important;
+}
+::selection { background: rgba(95, 158, 164, .35) !important; color: #e3f2f3 !important; }
+
+@media (max-width: 768px) {
+  #hero::before { background:
+    repeating-conic-gradient(from 212deg at 50% 106%,
+      rgba(190, 222, 226, .12) 0deg .6deg,
+      transparent .6deg 7.5deg),
+    radial-gradient(ellipse 60% 50% at 50% 104%, rgba(150, 200, 206, .1) 0%, transparent 68%); }
+}
+
+/* 语言胶囊激活态：冰银实心 */
+.zone-archive .about-lang-btn.active {
+  background: linear-gradient(180deg, #c9dfe1, #9fb8bc) !important;
+  color: #06100f !important;
+  border-color: #9fb8bc !important;
+}
